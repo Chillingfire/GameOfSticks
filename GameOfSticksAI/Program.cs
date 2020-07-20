@@ -1,4 +1,4 @@
-﻿//1033161
+﻿//Daniel Kantor - Chillingfire (2020)
 //Game Of Sticks Program
 //Plays the game of sticks game in console 
 
