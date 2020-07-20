@@ -10,10 +10,8 @@ namespace GameOfSticks
     class Program
     {
         static string userName = "";
-        //Main AI
-        static ArtificalIntelligence mainAI = new ArtificalIntelligence();
-        //AI used to train the main AI
-        static ArtificalIntelligence trainerAI = new ArtificalIntelligence();
+        static ArtificalIntelligence mainAI = new ArtificalIntelligence(); //Main AI
+        static ArtificalIntelligence trainerAI = new ArtificalIntelligence(); //AI used to train the main AI
         static Random random = new Random();
 
         static void Main()
@@ -92,14 +90,8 @@ namespace GameOfSticks
 
                 Console.WriteLine();
 
-                if (hasAIBattled == true)
-                {
-                    Console.Write("Would you like to play again? (yes/no) ");
-                }
-                else
-                {
-                    Console.Write("\"Would you like to play?\" (yes/no) ");
-                }
+                if (hasAIBattled == true) Console.Write("Would you like to play again? (yes/no) ");
+                else Console.Write("\"Would you like to play?\" (yes/no) ");
 
                 response = Console.ReadLine();
 
@@ -226,14 +218,8 @@ namespace GameOfSticks
                     {
                         if (playMode == 1)
                         {
-                            if (turnsTaken % 2 == 0)
-                            {
-                                numOfSticks -= Game(numOfSticks, 1, 1);
-                            }
-                            else
-                            {
-                                numOfSticks -= Game(numOfSticks, 2, 1);
-                            }
+                            if (turnsTaken % 2 == 0) numOfSticks -= Game(numOfSticks, 1, 1);
+                            else numOfSticks -= Game(numOfSticks, 2, 1);
 
                             turnsTaken++;
                         }
@@ -242,7 +228,6 @@ namespace GameOfSticks
             }
 
             //Determines who won based on turns taken and who goes first
-
             //(Human vs. AI) If the human goes first and wins
             if (turnsTaken % 2 == 0 && whoGoesFirst == 0 && playMode == 2)
             {
@@ -308,17 +293,11 @@ namespace GameOfSticks
                         else
                         {
                             //(Human vs. Human) If player 1 wins
-                            if (turnsTaken % 2 == 0 && playMode == 1)
-                            {
-                                Console.WriteLine("Player 1 has won!");
-                            }
+                            if (turnsTaken % 2 == 0 && playMode == 1) Console.WriteLine("Player 1 has won!");
                             else
                             {
                                 //(Human vs. Human) If player 2 wins
-                                if (turnsTaken % 2 != 0 && playMode == 1)
-                                {
-                                    Console.WriteLine("Player 2 has won!");
-                                }
+                                if (turnsTaken % 2 != 0 && playMode == 1) Console.WriteLine("Player 2 has won!");
                             }
                         }
                     }
@@ -329,23 +308,17 @@ namespace GameOfSticks
         //Determines what text to print after sticks taken
         static void AIText(int sticksTaken)
         {
-            if (sticksTaken == 1)
+            switch (sticksTaken)
             {
-                Console.WriteLine("The intellectual AI took 1 stick");
-            }
-            else
-            {
-                if (sticksTaken == 2)
-                {
+                case 1:
+                    Console.WriteLine("The intellectual AI took 1 stick");
+                    break;
+                case 2:
                     Console.WriteLine("The impressive AI took 2 sticks");
-                }
-                else
-                {
-                    if (sticksTaken == 3)
-                    {
-                        Console.WriteLine("The brilliant AI took 3 sticks");
-                    }
-                }
+                    break;
+                case 3:
+                    Console.WriteLine("The brilliant AI took 3 sticks");
+                    break;
             }
         }
 
@@ -407,14 +380,9 @@ namespace GameOfSticks
         static int Game(int numOfSticks, int playerNumber, int playMode)
         {
             Console.WriteLine($"There are {numOfSticks} sticks on the board.");
-            if (playMode == 2)
-            {
-                Console.Write("Human: How many sticks do you want to take? (1-3) ");
-            }
-            else
-            {
-                Console.Write($"Player {playerNumber}: How many sticks do you take? (1-3) ");
-            }
+
+            if (playMode == 2) Console.Write("Human: How many sticks do you want to take? (1-3) ");
+            else Console.Write($"Player {playerNumber}: How many sticks do you take? (1-3) ");
 
             string sticksTakenString = Console.ReadLine();
 
@@ -425,13 +393,24 @@ namespace GameOfSticks
                 sticksTakenString = Console.ReadLine();
             }
 
-            int sticksTaken = int.Parse(sticksTakenString);
+            int sticksTaken = 0;
 
             //User stuck in loop if "sticks taken" is an invalid number
             while (sticksTaken > 3 || sticksTaken < 1)
             {
-                Console.WriteLine("Invalid number, try again");
-                sticksTaken = int.Parse(Console.ReadLine());
+                try
+                {
+                    sticksTaken = int.Parse(sticksTakenString);
+
+                    if (sticksTaken > 0 && sticksTaken < 4) break;
+                    else Console.WriteLine("Value not accepted, try again");
+
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Value not accepted, try again");
+                }
+                sticksTakenString = Console.ReadLine();
             }
             //Returns sticks taken by player
             return sticksTaken;
