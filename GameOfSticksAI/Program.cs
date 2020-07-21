@@ -51,7 +51,7 @@ namespace GameOfSticks
         static void GameOfSticksOverall()
         {
             string response = "yes";
-            int difficulty = new int();
+            int difficulty = 0;
 
             bool hasAIBattled = false;
 
@@ -62,8 +62,22 @@ namespace GameOfSticks
                 {
                     Console.Write("What kind of challenge are you anticipating? (1 - Easy, 2 - Normal, 3 - Heroic, 4 - Legendary) ");
 
-                    difficulty = int.Parse(Console.ReadLine());
+                    while (difficulty > 4 || difficulty < 1)
+                    {
+                        try
+                        {
+                            difficulty = int.Parse(Console.ReadLine());
 
+                            if (difficulty > 0 && difficulty < 5) break;
+                            else Console.WriteLine("Not a valid difficulty");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Value not accepted, try again");
+                        }
+                        difficulty = 0;
+                    }
+                    
                     //Depending on what difficulty the user selected, the AI will train a certain amount of times
                     switch (difficulty)
                     {
@@ -93,7 +107,23 @@ namespace GameOfSticks
                 if (hasAIBattled == true) Console.Write("Would you like to play again? (yes/no) ");
                 else Console.Write("\"Would you like to play?\" (yes/no) ");
 
-                response = Console.ReadLine();
+                response = "";
+
+                while (response != "yes" && response != "no")
+                {
+                    response = Console.ReadLine().ToLower();
+
+                    try
+                    {
+                        if (response == "yes" || response == "no") break;
+                        else Console.WriteLine("Not a valid response");
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Value not accepted, try again");
+                    }
+                    response = "";
+                }
 
                 //If the user doesn't want to play the game before it even began
                 if (response == "no" && hasAIBattled == false)
@@ -110,12 +140,6 @@ namespace GameOfSticks
 
                 //Says that the AIs battled with each other
                 hasAIBattled = true;
-
-                while (response != "yes" && response != "no")
-                {
-                    Console.WriteLine("Invalid input, try again");
-                    response = Console.ReadLine();
-                }
             }
 
             if (response == "no" && hasAIBattled == true)
@@ -342,13 +366,22 @@ namespace GameOfSticks
             Console.Write("How many sticks are there on the table initially? (10-100) ");
 
             //Starting number of sticks
-            int startingNumOfSticks = int.Parse(Console.ReadLine());
+            int startingNumOfSticks = 999;
 
             //User stuck in loop if "starting number of sticks" is an invalid number
             while (startingNumOfSticks > 100 || startingNumOfSticks < 10)
             {
-                Console.WriteLine("Invalid number, try again");
-                startingNumOfSticks = int.Parse(Console.ReadLine());
+                try
+                {
+                    startingNumOfSticks = int.Parse(Console.ReadLine());
+
+                    if (startingNumOfSticks >= 10 && startingNumOfSticks <= 100) break;
+                    else Console.WriteLine("Invalid number, try again");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Value not accepted, try again");
+                }
             }
 
             Console.WriteLine();
@@ -363,14 +396,23 @@ namespace GameOfSticks
             Console.WriteLine("Options:\nPlay against a friend(1)\nPlay against the computer(2)");
             Console.Write("Which option do you take(1 - 2)? ");
 
-            int playMode = int.Parse(Console.ReadLine());
+            int playMode = 0;
 
             Console.WriteLine();
 
             while (playMode != 1 && playMode != 2)
             {
-                Console.Write("Invalid input, try again ");
-                playMode = int.Parse(Console.ReadLine());
+                try
+                {
+                    playMode = int.Parse(Console.ReadLine());
+
+                    if (playMode > 0 && playMode < 3) break;
+                    else Console.WriteLine("Not a valid mode");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Value not accepted, try again");
+                }
             }
 
             return playMode;
