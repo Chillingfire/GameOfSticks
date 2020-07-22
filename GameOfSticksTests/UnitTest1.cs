@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Daniel Kantor - Chillingfire (2020)
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GameOfSticks;
 
@@ -12,14 +14,10 @@ namespace GameOfSticksTests
 		const int MaxSticksPerTurn = 3;
 		private ITestSticks ai;
 
-		// Note: a new UnitTest1 object is created for each and every test that runs
 		public UnitTest1()
 		{
 			this.rand = new Random();
-			// TODO: Add ITestSticks.cs to your GameOfSticks project, and have your AI class implement that interface
-			// TODO: create a new instance of your AI class
 			this.ai = new ArtificalIntelligence();
-			// TODO: if you have additional setup (e.g. .StartGame() method to call), put that code here
 		}
 
 		#region GetSticks Mechanics
@@ -221,8 +219,5 @@ namespace GameOfSticksTests
 		}
 		#endregion
 
-		// McT - pretend I did something important here
-
-        // I did something
 	}
 }

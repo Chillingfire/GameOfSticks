@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Daniel Kantor - Chillingfire (2020)
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
